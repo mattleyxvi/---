@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = "";
+            string b = "";
+            int i;
+            int s = 1 ;
+
+
+            string[] input = Console.ReadLine().Split(' ');
+            List<string> output = new List<string>();
+            List<string> outfake = new List<string>();
+            for (int j = 0; j < input.Length; j++)
+            {
+
+                while(input[j].Length != 0)
+                {
+                    i = (input[j].Length - 1) / 2;
+                    a += input[j][i];
+
+                    input[j] = input[j].Remove(i,1);
+
+                }
+
+                outfake.Add(a + " ");
+                a = "";
+                
+            }
+
+
+
+           while (outfake.Count != 0)
+            {
+                i = (outfake.Count) / 2;
+
+                output.Add(outfake[i]);
+
+                outfake.Remove(outfake[i]);
+            }
+
+
+            foreach (string q in output)
+                Console.Write(q);
+
+            Console.ReadKey();
+        }
+    }
+}
