@@ -1,0 +1,57 @@
+def inputadd(employees: dict, line):
+    id = line.pop(0)
+    if line: name = ' '.join(line)
+    else: name = 'Unknown Name'
+    if id in employees.keys():
+        if employees[id].name == 'Unknown Name': employees[id].name = name
+    else: employees[id] = Employee(id, name)
+    return employees[id]
+
+class Employee:
+    def __init__(self, id, name=""):
+        self.id = id
+        self.name = name
+        self.subordinates = list()
+
+    def add_subordinate(self, subordinate):
+        self.subordinates.append(subordinate)
+
+    def __str__(self):
+        return self.id + ' ' + self.name
+
+f = open('input.txt')
+
+employees = dict()
+line = f.readline().split()
+while line[0] != "END":
+    employer = inputadd(employees, line)
+    employee = inputadd(employees, f.readline().split())
+    employer.add_subordinate(employee)
+    line = f.readline().split()
+stuffs = f.readline().split()
+try:
+    stuff = int(stuffs[0])
+    stuff = stuffs[0]
+except:
+    stuff = ' '.join(stuffs)
+for employee in employees.values():
+    if employee.name == stuff or employee.id == stuffs:
+        body = employee
+        break
+bodies = list()
+stack = [body]
+while stack:
+    body = stack.pop()
+    subordinates = body.subordinates
+    bodies.append(body)
+    if not subordinates:
+        pass
+    else:
+        for employee in subordinates:
+            stack.append(employee)
+bodies.pop(0)
+bodies.sort(key=lambda x: x.id)
+for man in bodies:
+    print(man)
+if not bodies:
+    print('NO')
